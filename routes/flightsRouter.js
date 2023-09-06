@@ -1,14 +1,15 @@
 import express from "express";
-import flightsDataGenerator from "../utils/flightsDataGenerator.js";
+import flightsDataGenerator from "../middlewares/flightsDataGenerator.js";
+import airportCodeGenerator from "../middlewares/airportCodeGenerator.js";
 import apicache from "apicache";
-
-/* import amadeusMiddleware from "../utils/amadeusGet.js"; */
 
 const cache = apicache.middleware;
 const router = express.Router();
 
-router.get("/", cache("5 minutes"), flightsDataGenerator);
+router.get("/", flightsDataGenerator);
 
-router.get("/test", cache("5 minutes"), flightsDataGenerator);
+router.get("/airport_code/", cache("15 minutes"), airportCodeGenerator, (req, res) => {
+	res.send(res.locals.data);
+});
 
 export default router;

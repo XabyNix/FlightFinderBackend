@@ -1,0 +1,289 @@
+{
+	"meta": {
+		"count": 11,
+		"links": {
+			"self": "https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=london",
+			"next": "https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=london&page%5Boffset%5D=10",
+			"last": "https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=london&page%5Boffset%5D=1"
+		}
+	},
+	"data": [
+		{
+			"type": "location",
+			"subType": "AIRPORT",
+			"name": "HEATHROW",
+			"detailedName": "LONDON/GB:HEATHROW",
+			"id": "ALHR",
+			"self": {
+				"href": "https://test.api.amadeus.com/v1/reference-data/locations/ALHR",
+				"methods": ["GET"]
+			},
+			"timeZoneOffset": "+01:00",
+			"iataCode": "LHR",
+			"geoCode": {
+				"latitude": 51.4775,
+				"longitude": -0.46138
+			},
+			"address": {
+				"cityName": "LONDON",
+				"cityCode": "LON",
+				"countryName": "UNITED KINGDOM",
+				"countryCode": "GB",
+				"regionCode": "EUROP"
+			},
+			"analytics": {
+				"travelers": {
+					"score": 45
+				}
+			}
+		},
+		{
+			"type": "location",
+			"subType": "AIRPORT",
+			"name": "GATWICK",
+			"detailedName": "LONDON/GB:GATWICK",
+			"id": "ALGW",
+			"self": {
+				"href": "https://test.api.amadeus.com/v1/reference-data/locations/ALGW",
+				"methods": ["GET"]
+			},
+			"timeZoneOffset": "+01:00",
+			"iataCode": "LGW",
+			"geoCode": {
+				"latitude": 51.15612,
+				"longitude": -0.17805
+			},
+			"address": {
+				"cityName": "LONDON",
+				"cityCode": "LON",
+				"countryName": "UNITED KINGDOM",
+				"countryCode": "GB",
+				"regionCode": "EUROP"
+			},
+			"analytics": {
+				"travelers": {
+					"score": 27
+				}
+			}
+		},
+		{
+			"type": "location",
+			"subType": "AIRPORT",
+			"name": "STANSTED",
+			"detailedName": "LONDON/GB:STANSTED",
+			"id": "ASTN",
+			"self": {
+				"href": "https://test.api.amadeus.com/v1/reference-data/locations/ASTN",
+				"methods": ["GET"]
+			},
+			"timeZoneOffset": "+01:00",
+			"iataCode": "STN",
+			"geoCode": {
+				"latitude": 51.885,
+				"longitude": 0.23501
+			},
+			"address": {
+				"cityName": "LONDON",
+				"cityCode": "LON",
+				"countryName": "UNITED KINGDOM",
+				"countryCode": "GB",
+				"regionCode": "EUROP"
+			},
+			"analytics": {
+				"travelers": {
+					"score": 15
+				}
+			}
+		},
+		{
+			"type": "location",
+			"subType": "AIRPORT",
+			"name": "LUTON",
+			"detailedName": "LONDON/GB:LUTON",
+			"id": "ALTN",
+			"self": {
+				"href": "https://test.api.amadeus.com/v1/reference-data/locations/ALTN",
+				"methods": ["GET"]
+			},
+			"timeZoneOffset": "+01:00",
+			"iataCode": "LTN",
+			"geoCode": {
+				"latitude": 51.87473,
+				"longitude": -0.36833
+			},
+			"address": {
+				"cityName": "LONDON",
+				"cityCode": "LON",
+				"countryName": "UNITED KINGDOM",
+				"countryCode": "GB",
+				"regionCode": "EUROP"
+			},
+			"analytics": {
+				"travelers": {
+					"score": 10
+				}
+			}
+		},
+		{
+			"type": "location",
+			"subType": "AIRPORT",
+			"name": "CITY AIRPORT",
+			"detailedName": "LONDON/GB:CITY AIRPORT",
+			"id": "ALCY",
+			"self": {
+				"href": "https://test.api.amadeus.com/v1/reference-data/locations/ALCY",
+				"methods": ["GET"]
+			},
+			"timeZoneOffset": "+01:00",
+			"iataCode": "LCY",
+			"geoCode": {
+				"latitude": 51.50528,
+				"longitude": 0.05528
+			},
+			"address": {
+				"cityName": "LONDON",
+				"cityCode": "LON",
+				"countryName": "UNITED KINGDOM",
+				"countryCode": "GB",
+				"regionCode": "EUROP"
+			},
+			"analytics": {
+				"travelers": {
+					"score": 4
+				}
+			}
+		},
+		{
+			"type": "location",
+			"subType": "AIRPORT",
+			"name": "LONDON ASHFORD",
+			"detailedName": "LYDD/GB:LONDON ASHFORD",
+			"id": "ALYX",
+			"self": {
+				"href": "https://test.api.amadeus.com/v1/reference-data/locations/ALYX",
+				"methods": ["GET"]
+			},
+			"timeZoneOffset": "+01:00",
+			"iataCode": "LYX",
+			"geoCode": {
+				"latitude": 50.95612,
+				"longitude": 0.93917
+			},
+			"address": {
+				"cityName": "LYDD",
+				"cityCode": "LYX",
+				"countryName": "UNITED KINGDOM",
+				"countryCode": "GB",
+				"regionCode": "EUROP"
+			},
+			"analytics": {
+				"travelers": {
+					"score": 2
+				}
+			}
+		},
+		{
+			"type": "location",
+			"subType": "AIRPORT",
+			"name": "SOUTHEND",
+			"detailedName": "LONDON/GB:SOUTHEND",
+			"id": "ASEN",
+			"self": {
+				"href": "https://test.api.amadeus.com/v1/reference-data/locations/ASEN",
+				"methods": ["GET"]
+			},
+			"timeZoneOffset": "+01:00",
+			"iataCode": "SEN",
+			"geoCode": {
+				"latitude": 51.57139,
+				"longitude": 0.69556
+			},
+			"address": {
+				"cityName": "LONDON",
+				"cityCode": "LON",
+				"countryName": "UNITED KINGDOM",
+				"countryCode": "GB",
+				"regionCode": "EUROP"
+			},
+			"analytics": {
+				"travelers": {
+					"score": 1
+				}
+			}
+		},
+		{
+			"type": "location",
+			"subType": "AIRPORT",
+			"name": "BIGGIN HILL",
+			"detailedName": "LONDON/GB:BIGGIN HILL",
+			"id": "ABQH",
+			"self": {
+				"href": "https://test.api.amadeus.com/v1/reference-data/locations/ABQH",
+				"methods": ["GET"]
+			},
+			"timeZoneOffset": "+01:00",
+			"iataCode": "BQH",
+			"geoCode": {
+				"latitude": 51.33084,
+				"longitude": 0.0325
+			},
+			"address": {
+				"cityName": "LONDON",
+				"cityCode": "LON",
+				"countryName": "UNITED KINGDOM",
+				"countryCode": "GB",
+				"regionCode": "EUROP"
+			}
+		},
+		{
+			"type": "location",
+			"subType": "AIRPORT",
+			"name": "AIRPORT",
+			"detailedName": "GROTON NEW LONDON/CT/US:AIRPOR",
+			"id": "AGON",
+			"self": {
+				"href": "https://test.api.amadeus.com/v1/reference-data/locations/AGON",
+				"methods": ["GET"]
+			},
+			"timeZoneOffset": "-04:00",
+			"iataCode": "GON",
+			"geoCode": {
+				"latitude": 41.33001,
+				"longitude": -72.04444
+			},
+			"address": {
+				"cityName": "GROTON NEW LONDON",
+				"cityCode": "GON",
+				"countryName": "UNITED STATES OF AMERICA",
+				"countryCode": "US",
+				"stateCode": "CT",
+				"regionCode": "NAMER"
+			}
+		},
+		{
+			"type": "location",
+			"subType": "AIRPORT",
+			"name": "MAGEE FIELD",
+			"detailedName": "LONDON/CORBIN/KY/US:MAGEE FIEL",
+			"id": "ALOZ",
+			"self": {
+				"href": "https://test.api.amadeus.com/v1/reference-data/locations/ALOZ",
+				"methods": ["GET"]
+			},
+			"timeZoneOffset": "-04:00",
+			"iataCode": "LOZ",
+			"geoCode": {
+				"latitude": 37.08862,
+				"longitude": -84.075
+			},
+			"address": {
+				"cityName": "LONDON/CORBIN",
+				"cityCode": "LOZ",
+				"countryName": "UNITED STATES OF AMERICA",
+				"countryCode": "US",
+				"stateCode": "KY",
+				"regionCode": "NAMER"
+			}
+		}
+	]
+}

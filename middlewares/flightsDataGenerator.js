@@ -1,7 +1,7 @@
-import fetchApi from "./fetchApi.js";
+import fetchApi from "../utils/fetchApi.js";
 
-function dataProcessing(response) {
-	const dataArray = response.data.data.map((flight) => ({
+function dataProcessing(response2) {
+	const dataArray = response2.map((flight) => ({
 		departure: {
 			code: flight.itineraries[0].segments[0].departure.iataCode,
 			time: flight.itineraries[0].segments[0].departure.at,
@@ -20,17 +20,17 @@ function dataProcessing(response) {
 }
 
 const flightsDataGenerator = async (req, res) => {
-	console.log("sono entrato qui");
 	const { from, to, departureDate, adults } = req.query;
 	console.log(req.query);
 
-	const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${req.query.from}&destinationLocationCode=${req.query.to}&departureDate=${req.query.departureDate}&adults=${req.query.adults}&max=20`;
 	if (from && to && departureDate && adults) {
-		const response = await fetchApi(url);
-		//res.json(response.data);
-		res.json(dataProcessing(response));
+		const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${from}&destinationLocationCode=${to}&departureDate=${departureDate}&adults=${adults}&children=&max=20`;
+		const response1 = await fetchApi(url);
+		const orazio = dataProcessing(response1.data.data);
+
+		res.json(orazio);
 	} else {
-		res.send("Make sure parameters url are correct");
+		res.status(400).send("Make sure parameters url are correct");
 	}
 };
 
