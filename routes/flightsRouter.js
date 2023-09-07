@@ -9,6 +9,7 @@ const router = express.Router();
 router.get("/", flightsDataGenerator);
 
 router.get("/airport_code/", cache("15 minutes"), airportCodeGenerator, (req, res) => {
+	console.log("Send Response");
 	res.send(res.locals.data);
 });
 

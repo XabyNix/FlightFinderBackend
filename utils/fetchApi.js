@@ -10,9 +10,10 @@ const fetchApi = async (url) => {
 		},
 	};
 	const res = await axios.get(url, config).catch(async (noToken) => {
+		//console.log(noToken);
 		if (noToken.response.data.errors[0].code === 38191) {
 			config.headers.Authorization = await getToken();
-			const sureResponse = await axios.get(url, config).catch(() => {
+			const sureResponse = await axios.get(url, config).catch((error) => {
 				throw new Error("Fetching api data error");
 			});
 			return sureResponse;

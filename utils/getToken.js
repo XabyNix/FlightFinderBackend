@@ -1,6 +1,6 @@
 import axios from "axios";
-import "dotenv/config";
 import myCache from "./myCache.js";
+import "dotenv/config";
 
 const getToken = async () => {
 	const tokenUrl = "https://test.api.amadeus.com/v1/security/oauth2/token";
