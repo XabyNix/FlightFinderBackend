@@ -22,8 +22,7 @@ const fetchApi = async (url) => {
 				throw err.response.data.errors[0].detail;
 			});
 			return sureResponse;
-		}
-		if (err.response.data.errors[0].code === 1797) {
+		} else if (err.response.data.errors[0].code === 1797) {
 			return null;
 		} else {
 			throw err.response.data.errors[0].detail;
