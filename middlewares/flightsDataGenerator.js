@@ -1,25 +1,40 @@
 import { endpoints } from "../endpoints.js";
 import fetchApi from "../utils/fetchApi.js";
 //fare richieste a altra api per la ricerca della citta
-function dataProcessing(response2) {
-	const dataArray = response2.map((flight) => ({
-		departure: {
-			code: flight.itineraries[0].segments[0].departure.iataCode,
-			time: flight.itineraries[0].segments[0].departure.at,
-			//city: cityFromCode(flight.itineraries[0].segments[0].departure.iataCode),
-		},
-		arrival: {
-			code: flight.itineraries[0].segments.at(-1).arrival.iataCode,
-			time: flight.itineraries[0].segments.at(-1).arrival.at,
-			//city: cityFromCode(flight.itineraries[0].segments.at(-1).arrival.iataCode),
-		},
-		duration: flight.itineraries[0].duration.slice(2).split("H").join("H "),
-		price: {
-			currency: flight.price.currency,
-			total: flight.price.total,
-		},
-	}));
+
+async function dataProcessing(response) {
+	const dataArray = response.data.map((flight) => {
+		const firstSegment = flight.itineraries[0].segments[0];
+		const lastSegment = flight.itineraries[0].segments.at(-1);
+
+		return {
+			departure: {
+				code: firstSegment.departure.iataCode,
+				time: firstSegment.departure.at,
+			},
+			arrival: {
+				code: lastSegment.arrival.iataCode,
+				time: lastSegment.arrival.at,
+			},
+			duration: flight.itineraries[0].duration.slice(2).split("H").join("H "),
+			price: {
+				currency: flight.price.currency,
+				total: flight.price.total,
+			},
+		};
+	});
 	return dataArray;
+}
+
+async function cityProcessing(response) {
+	const cityCodes = Object.values(response.dictionaries.locations).map((value) => value.cityCode);
+	const cityArray = [];
+	for (let code of cityCodes) {
+		const url = endpoints.locationCode + code;
+		const cities = await fetchApi(url);
+		cities !== null && cityArray.push(cities.data.data.name);
+	}
+	return cityArray;
 }
 
 const flightsDataGenerator = async (req, res) => {
@@ -29,7 +44,8 @@ const flightsDataGenerator = async (req, res) => {
 	if (Object.keys(req.query).length === 6) {
 		const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${from}&destinationLocationCode=${to}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}&max=20`;
 		const response1 = await fetchApi(url);
-		const orazio = dataProcessing(response1.data.data);
+		const orazio = await dataProcessing(response1.data);
+		const city = await cityProcessing(response1.data);
 
 		res.json(orazio);
 	} else {
@@ -41,8 +57,7 @@ const flightsDataGenerator = async (req, res) => {
 export default flightsDataGenerator;
 
 async function cityFromCode(code) {
-	const url = endpoints + "C" + code;
+	const url = ``;
 	const asd = await fetchApi(url);
-	console.log(asd);
-	return asd.data.data.name;
+	return asd;
 }
