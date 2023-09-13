@@ -17,8 +17,9 @@ const getToken = async () => {
 	};
 
 	const responseToken = await axios.post(tokenUrl, tokenData, tokenConfig).catch((error) => {
-		throw new Error("Token request error");
+		console.log(error.response.data.errors[0]);
 	});
+
 	const token = responseToken.data.access_token;
 	myCache.put("access_token", `Bearer ${token}`);
 

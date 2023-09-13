@@ -10,7 +10,8 @@ router.get("/", flightsDataGenerator);
 
 router.get("/airport_code/", cache("15 minutes"), airportCodeGenerator, (req, res) => {
 	console.log("Send Response");
-	res.send(res.locals.data);
+	if (res.locals.data) res.send(res.locals.data);
+	else res.status(400).send();
 });
 
 export default router;

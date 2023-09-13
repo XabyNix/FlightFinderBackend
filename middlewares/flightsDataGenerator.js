@@ -30,8 +30,9 @@ async function dataProcessing(response) {
 
 async function cityProcessing(response) {
 	console.log("PROCESSO I DATI DELLE CITTA.\n");
+	console.log(response);
 	const cityCodes = Object.entries(response.dictionaries.locations);
-	const myArray = [];
+	const myArray = {};
 	for (const [airportCode, cityInfo] of cityCodes) {
 		const url = endpoints.locationCode + cityInfo.cityCode;
 
@@ -39,9 +40,7 @@ async function cityProcessing(response) {
 
 		if (cityResponse !== null) {
 			const cityName = cityResponse.data.data.name;
-			myArray.push({
-				[airportCode]: { name: cityName, country: cityInfo.countryCode },
-			});
+			myArray[airportCode] = { name: cityName, country: cityInfo.countryCode };
 		}
 	}
 	console.log("DATI CITTA PROCESSATI\n");
@@ -51,26 +50,19 @@ async function cityProcessing(response) {
 const flightsDataGenerator = async (req, res) => {
 	const { from, to, departureDate, returnDate, adults, children } = req.query;
 
-	console.log("RICHIESTA RICEVUTA: " + req.query + "\n");
-	//console.log(req.query);
+	console.log("RICHIESTA RICEVUTA: \n");
+	console.log(req.query);
 
-	if (Object.keys(req.query).length === 6) {
-		const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${from}&destinationLocationCode=${to}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}&max=20`;
-		const response1 = await fetchApi(url).catch((err) => console.log(err));
+	const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${from}&destinationLocationCode=${to}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}&max=20`;
+	const response1 = await fetchApi(url).catch((err) => console.log(err));
+
+	if (response1 && response1.data.meta.count !== 0) {
 		const flightsInfo = await dataProcessing(response1.data);
 		const city = await cityProcessing(response1.data);
 		const orazio = { data: flightsInfo, city };
 		console.log("Invio dati.\n");
 		res.json(orazio);
-	} else {
-		res.status(400).send("Make sure parameters url are correct");
-		throw new Error("Parameter missing");
-	}
+	} else res.status(200).send({});
 };
 
 export default flightsDataGenerator;
-
-async function cityFromCode(code) {
-	const asd = await fetchApi(url);
-	return asd;
-}

@@ -9,26 +9,32 @@ const axiosRateLimit = rateLimit(axios.create(), {
 	perMilliseconds: 1000,
 	maxRPS: 1,
 });
+
 const fetchApi = async (url) => {
 	let config = {
 		headers: {
 			Authorization: myCache.get("access_token"),
 		},
 	};
-	const res = await axiosRateLimit.get(url, config).catch(async (err) => {
-		if (err.response.data.errors[0].code === 38191) {
-			config.headers.Authorization = await getToken();
-			const sureResponse = await axiosRateLimit.get(url, config).catch((error) => {
-				throw err.response.data.errors[0].detail;
-			});
-			return sureResponse;
-		} else if (err.response.data.errors[0].code === 1797) {
-			return null;
-		} else {
-			throw err.response.data.errors[0].detail;
-		}
-	});
-	return res;
+
+	async function makeRequest() {
+		const res = await axiosRateLimit.get(url, config).catch(async (err) => {
+			if (
+				(err.response.data.errors[0].code === 38191) |
+				(err.response.data.errors[0].code === 38192)
+			) {
+				config.headers.Authorization = await getToken();
+
+				return makeRequest();
+			} else if (err.response.data.errors[0].code === 1797) {
+				return null;
+			} else {
+				throw err.response.data.errors[0];
+			}
+		});
+		return res;
+	}
+	return makeRequest();
 };
 
 export default fetchApi;
