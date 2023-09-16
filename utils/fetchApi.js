@@ -1,8 +1,8 @@
 import axios from "axios";
-import "dotenv/config";
 import myCache from "./myCache.js";
 import getToken from "./getToken.js";
 import rateLimit from "axios-rate-limit";
+import "dotenv/config";
 
 const axiosRateLimit = rateLimit(axios.create(), {
 	maxRequests: 1,
@@ -18,18 +18,22 @@ const fetchApi = async (url) => {
 	};
 
 	async function makeRequest() {
-		const res = await axiosRateLimit.get(url, config).catch(async (err) => {
-			if (
-				(err.response.data.errors[0].code === 38191) |
-				(err.response.data.errors[0].code === 38192)
-			) {
-				config.headers.Authorization = await getToken();
+		const res = await axios.get(url, config).catch(async (err) => {
+			switch (err.response.data.errors[0].code) {
+				case 38191 || 38192:
+					config.headers.Authorization = await getToken();
+					return makeRequest();
 
-				return makeRequest();
-			} else if (err.response.data.errors[0].code === 1797) {
-				return null;
-			} else {
-				throw err.response.data.errors[0];
+				case 38194:
+					setTimeout(() => {
+						makeRequest();
+					}, 500);
+					break;
+				case 1797:
+					return null;
+
+				default:
+					throw err.response.data.errors[0];
 			}
 		});
 		return res;
