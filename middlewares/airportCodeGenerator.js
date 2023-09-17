@@ -1,8 +1,9 @@
+import { endpoints } from "../endpoints.js";
 import fetchApi from "../utils/fetchApi.js";
 export default async function airportCodeGenerator(req, res, next) {
 	const { keyword } = req.query;
 	console.log("Keyword is: " + keyword);
-	const url = `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=${keyword}&view=LIGHT`;
+	const url = endpoints.keywordSearch + keyword;
 	try {
 		const responseData = await fetchApi(url);
 		res.locals.data = dataProcessing(responseData.data.data);
@@ -15,7 +16,8 @@ export default async function airportCodeGenerator(req, res, next) {
 
 function dataProcessing(data) {
 	const airports = data;
-	const formattedJson = airports.map((airport) => ({
+	const formattedJson = airports.map((airport, index) => ({
+		key: index + 1,
 		name: airport.name,
 		iataCode: airport.iataCode,
 		city: airport.address.cityName,

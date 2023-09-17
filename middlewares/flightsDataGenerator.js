@@ -24,8 +24,17 @@ const flightsDataGenerator = async (req, res) => {
 	console.log("RICHIESTA RICEVUTA: \n");
 	console.log(req.query);
 
-	const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${from}&destinationLocationCode=${to}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${children}&max=20`;
+	const url =
+		endpoints.flightData +
+		`originLocationCode=${from}` +
+		`&destinationLocationCode=${to}` +
+		`&departureDate=${departureDate}` +
+		(returnDate ? `&returnDate=${returnDate}` : "") +
+		`&adults=${adults}` +
+		`&children=${children}` +
+		"&max=20";
 	try {
+		console.log(url);
 		const response1 = await fetchApi(url);
 		if (response1 && response1.data.meta.count !== 0) {
 			const flightsInfo = response1.data.data;

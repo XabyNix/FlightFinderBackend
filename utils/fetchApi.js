@@ -20,7 +20,9 @@ const fetchApi = async (url) => {
 	async function makeRequest() {
 		const res = await axios.get(url, config).catch(async (err) => {
 			switch (err.response.data.errors[0].code) {
-				case 38191 || 38192:
+				case 38191:
+				case 38192:
+					console.log("token scaduto");
 					config.headers.Authorization = await getToken();
 					return makeRequest();
 
