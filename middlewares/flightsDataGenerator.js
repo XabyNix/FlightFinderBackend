@@ -3,19 +3,17 @@ import fetchApi from "../utils/fetchApi.js";
 
 async function cityProcessing(response) {
 	const codeDict = response.dictionaries.locations;
-	const obj = {};
 	for (const code in codeDict) {
 		const url = endpoints.locationCode + codeDict[code].cityCode;
 
 		try {
 			const cityResponse = await fetchApi(url);
-			cityResponse && (obj[code] = cityResponse.data.data.name);
+
+			cityResponse && (codeDict[code].cityName = cityResponse.data.data.name);
 		} catch (err) {
 			console.log(err);
 		}
 	}
-	console.log(obj);
-	return obj;
 }
 
 const flightsDataGenerator = async (req, res) => {
@@ -34,13 +32,12 @@ const flightsDataGenerator = async (req, res) => {
 		`&children=${children}` +
 		"&max=20";
 	try {
-		console.log(url);
 		const response1 = await fetchApi(url);
 		if (response1 && response1.data.meta.count !== 0) {
-			const flightsInfo = response1.data.data;
-			const city = await cityProcessing(response1.data);
-			const orazio = { data: flightsInfo, city };
-			console.log("Invio dati.\n");
+			const { data, dictionaries } = response1.data;
+			await cityProcessing(response1.data);
+			const orazio = { data, dictionaries };
+			console.log(dictionaries);
 			res.json(orazio);
 		} else res.status(200).send({});
 	} catch (error) {
