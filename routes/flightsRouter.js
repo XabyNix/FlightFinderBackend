@@ -7,7 +7,7 @@ import apicache from "apicache";
 const cache = apicache.middleware;
 const router = express.Router();
 
-router.get("/", flightsDataGenerator);
+router.get("/data", flightsDataGenerator);
 
 router.get("/airport_code/", cache("15 minutes"), airportCodeGenerator, (req, res) => {
 	console.log("Send Response");
